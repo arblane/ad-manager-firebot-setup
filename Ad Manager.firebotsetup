@@ -1,0 +1,159 @@
+{
+  "name": "Ad Manager",
+  "description": "Ad Manager for Twitch streams. Two parts 1) A timer that will give a 60 second notification for streamer and chat that an ad is coming up (both in chat and in an overlay), sound notification of the same (via TTS), followed by customized ad duration  and 2) A customizable on stream start ad run to mitigate pre-roll ads.",
+  "version": 1,
+  "author": "arblane",
+  "components": {
+    "commands": [],
+    "counters": [],
+    "currencies": [],
+    "effectQueues": [],
+    "events": [
+      {
+        "name": "[Ads] Run Starting Screen Ads",
+        "active": true,
+        "cached": true,
+        "sortTags": [
+          "21ce24f6-1031-4dc0-b0f0-8325b932238a"
+        ],
+        "eventId": "stream-started",
+        "sourceId": "ebiggz-obs-control",
+        "effects": {
+          "list": [
+            {
+              "id": "a03b9a40-d95d-11ed-a118-3f502954c8e2",
+              "type": "firebot:delay",
+              "active": true,
+              "delay": "60",
+              "effectLabel": "60 second delay"
+            },
+            {
+              "id": "722197e0-d962-11ed-a118-3f502954c8e2",
+              "type": "firebot:showImage",
+              "active": true,
+              "imageType": "local",
+              "position": "Custom",
+              "customCoords": {
+                "top": 75,
+                "bottom": null,
+                "left": 250,
+                "right": null
+              },
+              "enterAnimation": "fadeIn",
+              "exitAnimation": "fadeOut",
+              "inbetweenAnimation": "none",
+              "file": "E:\\Streaming\\Assets\\AdsRunning.png",
+              "length": "179",
+              "effectLabel": "Running"
+            },
+            {
+              "id": "8758e7d0-d95d-11ed-a118-3f502954c8e2",
+              "type": "firebot:ad-break",
+              "active": true,
+              "adLength": 180,
+              "effectLabel": "180 seconds of ads"
+            }
+          ],
+          "id": "7de13310-d95d-11ed-a118-3f502954c8e2"
+        },
+        "filterData": {
+          "mode": "exclusive",
+          "filters": []
+        },
+        "id": "b3195080-d95d-11ed-a118-3f502954c8e2"
+      }
+    ],
+    "eventGroups": [],
+    "hotkeys": [],
+    "presetEffectLists": [],
+    "timers": [
+      {
+        "active": true,
+        "onlyWhenLive": true,
+        "name": "Ad_tmr",
+        "interval": 1500,
+        "requiredChatLines": 0,
+        "sortTags": [
+          "c7c91782-5578-4a83-aea1-64911a27d615"
+        ],
+        "effects": {
+          "list": [
+            {
+              "id": "337c9190-5580-11ed-9402-2dfd85fde49c",
+              "type": "firebot:showImage",
+              "active": true,
+              "imageType": "local",
+              "position": "Custom",
+              "customCoords": {
+                "top": 75,
+                "bottom": null,
+                "left": 250,
+                "right": null
+              },
+              "enterAnimation": "fadeIn",
+              "exitAnimation": "fadeOut",
+              "inbetweenAnimation": "none",
+              "file": "E:\\Streaming\\Assets\\AdStartSoon.png",
+              "length": "58",
+              "effectLabel": "Starting Soon"
+            },
+            {
+              "id": "26e68270-d92d-11ed-9ea6-6314c8fcc95e",
+              "type": "firebot:announcement",
+              "active": true,
+              "color": "Purple",
+              "chatter": "Streamer",
+              "message": "Ads will begin rolling in less than 60 seconds! Sorry for the ads, but I need to roll a few every so often to reduce the preroll ad. I will not be doing or saying much during the ad, so you won't miss anything. Hang in there!"
+            },
+            {
+              "id": "97092cb0-d92d-11ed-9ea6-6314c8fcc95e",
+              "type": "firebot:text-to-speech",
+              "active": true,
+              "voiceId": "default",
+              "text": "Sorry to bother you $streamer, ads are about to start."
+            },
+            {
+              "id": "4e883e80-5580-11ed-9402-2dfd85fde49c",
+              "type": "firebot:delay",
+              "active": true,
+              "delay": "60",
+              "effectLabel": "60 seconds"
+            },
+            {
+              "id": "42687dc0-d962-11ed-a118-3f502954c8e2",
+              "type": "firebot:showImage",
+              "active": true,
+              "imageType": "local",
+              "position": "Custom",
+              "customCoords": {
+                "top": 75,
+                "bottom": null,
+                "left": 250,
+                "right": null
+              },
+              "enterAnimation": "fadeIn",
+              "exitAnimation": "fadeOut",
+              "inbetweenAnimation": "none",
+              "file": "E:\\Streaming\\Assets\\AdsRunning.png",
+              "length": "179",
+              "effectLabel": "Running"
+            },
+            {
+              "id": "49c57bc0-557f-11ed-9402-2dfd85fde49c",
+              "type": "firebot:ad-break",
+              "active": true,
+              "adLength": 90,
+              "effectLabel": "90 Seconds"
+            }
+          ],
+          "id": "461da970-557f-11ed-9402-2dfd85fde49c"
+        },
+        "id": "9682f3a0-5581-11ed-82fc-35cb9d65602e"
+      }
+    ],
+    "viewerRoles": [],
+    "quickActions": []
+  },
+  "requireCurrency": false,
+  "importQuestions": []
+}
