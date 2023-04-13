@@ -6,8 +6,8 @@ Ad Manager for Twitch streams. Two parts 1) A timer that will give a 60 second n
 
 + Download files
     + Ad Manager.firebotsetup
-    + AdStartSoon.png (or use your own)
-    + AdsRunning.png (or use your own)
+    + AdStartSoonSample.png (or use your own)
+    + AdsRunningSample.png (or use your own)
 + Import setup for Firebot
     + by going to Settings > Setups > Import Setup
     + Choose the file Ad Manager.firebotsetup from the location you just downloaded it to
