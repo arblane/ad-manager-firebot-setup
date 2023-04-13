@@ -13,14 +13,14 @@ Choose the file "Ad Manager.firebotsetup" from the location you just downloaded 
 
 ## Customize
 + Change the Event '[Ads] Run Starting Screen Ads'
-    ++ Image/Gif for content and location
-    ++ Ad Break for desired duration, it is currently set to 180 seconds to prevent pre-rolls
+    + Image/Gif for content and location
+    + Ad Break for desired duration, it is currently set to 180 seconds to prevent pre-rolls
 
 + Change the Time-Based 'Ad_tmr'
-    ++ Image/Gif x2 for content and location
-    ++ Announce for content
-    ++ Text to Speech for content, or swap for any other audio alert
-    ++ Ad Break for desired duration
+    + Image/Gif x2 for content and location
+    + Announce for content
+    + Text to Speech for content, or swap for any other audio alert
+    + Ad Break for desired duration
 
 # Credits
 Modeled after a setup posted by Cinnabadger
