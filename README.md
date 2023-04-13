@@ -17,6 +17,7 @@ Choose the file "Ad Manager.firebotsetup" from the location you just downloaded 
     + Ad Break for desired duration, it is currently set to 180 seconds to prevent pre-rolls
 
 + Change the Time-Based 'Ad_tmr'
+    + Timer interval for when you would like to have the ad run, currently set at 1500 seconds (or 25 minutes)
     + Image/Gif x2 for content and location
     + Announce for content
     + Text to Speech for content, or swap for any other audio alert
