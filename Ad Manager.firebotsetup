@@ -1,7 +1,7 @@
 {
   "name": "Ad Manager",
   "description": "Ad Manager for Twitch streams. Two parts 1) A timer that will give a 60 second notification for streamer and chat that an ad is coming up (both in chat and in an overlay), sound notification of the same (via TTS), followed by customized ad duration and 2) A customizable on stream start ad run to mitigate pre-roll ads.",
-  "version": 1.1,
+  "version": 1.2,
   "author": "arblane",
   "components": {
     "commands": [],
@@ -10,7 +10,7 @@
     "effectQueues": [],
     "events": [
       {
-        "name": "[Ads] Run Starting Screen Ads",
+        "name": "Run Starting Screen Ads",
         "active": true,
         "cached": true,
         "sortTags": [
@@ -23,24 +23,40 @@
             {
               "id": "0e8a4c90-e38a-11ed-8e9b-fb30552e0e11",
               "type": "firebot:run-effect-list",
-              "active": true,
+              "active": false,
               "listType": "preset",
               "presetListArgs": {
                 "duration": "60",
                 "title": "Ads Starting Soon",
-                "textColor": "#AA5DD5",
+                "textColor": "#000000",
                 "shadowColor": "#52057C",
                 "positionLeftCenterRight": "center",
                 "textSize": "75",
                 "textSizePx": "75",
-                "positionTopToBottomPx": "10"
+                "positionTopToBottomPx": "10",
+                "fontFamily": "'Open Sans', sans-serif"
               },
               "effectList": {
                 "list": [],
                 "id": "bad1b1e0-c172-11ec-bb23-2f4dbf6dfa98"
               },
-              "presetListId": "cfd57d70-c167-11ec-bb23-2f4dbf6dfa98",
+              "presetListId": "67a8b1c0-1a87-11ee-bccf-ab1038f73fb5",
               "effectLabel": "Ads Starting Soon Countdown"
+            },
+            {
+              "id": "87003030-3aa7-11ee-b257-119212737812",
+              "type": "firebot:run-effect-list",
+              "active": true,
+              "listType": "preset",
+              "presetListArgs": {
+                "countdown": "60"
+              },
+              "effectList": {
+                "list": [],
+                "id": "52c31490-3aa7-11ee-b257-119212737812"
+              },
+              "presetListId": "3b8f0be0-1a8f-11ee-bccf-ab1038f73fb5",
+              "effectLabel": "Ads Starting Soon Countdown (circle)"
             },
             {
               "id": "a03b9a40-d95d-11ed-a118-3f502954c8e2",
@@ -52,24 +68,41 @@
             {
               "id": "f4b523d0-e389-11ed-8e9b-fb30552e0e11",
               "type": "firebot:run-effect-list",
-              "active": true,
+              "active": false,
               "listType": "preset",
               "presetListArgs": {
                 "duration": "180",
                 "title": "Ads are Running",
-                "textColor": "#AA5DD5",
+                "textColor": "#000000",
                 "shadowColor": "#52057C",
                 "positionLeftCenterRight": "center",
                 "textSize": "75",
                 "textSizePx": "75",
-                "positionTopToBottomPx": "10"
+                "positionTopToBottomPx": "10",
+                "fontFamily": "'Open Sans', sans-serif",
+                "timesUpText": "Welcome Back!"
               },
               "effectList": {
                 "list": [],
                 "id": "bad1b1e0-c172-11ec-bb23-2f4dbf6dfa98"
               },
-              "presetListId": "cfd57d70-c167-11ec-bb23-2f4dbf6dfa98",
+              "presetListId": "67a8b1c0-1a87-11ee-bccf-ab1038f73fb5",
               "effectLabel": "Ads Running Countdown"
+            },
+            {
+              "id": "52c02e60-3aa7-11ee-b257-119212737812",
+              "type": "firebot:run-effect-list",
+              "active": true,
+              "listType": "preset",
+              "presetListArgs": {
+                "countdown": "180"
+              },
+              "effectList": {
+                "list": [],
+                "id": "52c31490-3aa7-11ee-b257-119212737812"
+              },
+              "presetListId": "3b8f0be0-1a8f-11ee-bccf-ab1038f73fb5",
+              "effectLabel": "Ads Running Countdown (circle)"
             },
             {
               "id": "8758e7d0-d95d-11ed-a118-3f502954c8e2",
@@ -77,6 +110,14 @@
               "active": true,
               "adLength": 180,
               "effectLabel": "180sec / 3min of ads"
+            },
+            {
+              "id": "c8f266b0-ea17-11ed-815a-4d4c064aa09b",
+              "type": "firebot:toggle-timer",
+              "active": true,
+              "selectedTimerId": "9682f3a0-5581-11ed-82fc-35cb9d65602e",
+              "toggleType": "enable",
+              "effectLabel": "Enable Ad Timer"
             }
           ],
           "id": "7de13310-d95d-11ed-a118-3f502954c8e2"
@@ -86,185 +127,67 @@
           "filters": []
         },
         "id": "b3195080-d95d-11ed-a118-3f502954c8e2"
-      }
-    ],
-    "eventGroups": [
+      },
       {
-        "id": "b2c6e820-e38c-11ed-8e9b-fb30552e0e11",
-        "name": "Startup OBS",
+        "name": "Disable Ad Timer at end of Stream",
         "active": true,
-        "events": [
-          {
-            "name": "Starting Soon Timer",
-            "active": true,
-            "cached": true,
-            "sortTags": [],
-            "eventId": "stream-started",
-            "sourceId": "ebiggz-obs-control",
-            "effects": {
-              "list": [
-                {
-                  "id": "51ff2b70-e38b-11ed-8e9b-fb30552e0e11",
-                  "type": "firebot:run-effect-list",
-                  "active": true,
-                  "listType": "preset",
-                  "presetListArgs": {
-                    "title": "Starting Soon",
-                    "duration": "300",
-                    "textColor": "#AA5DD5",
-                    "shadowColor": "#52057C",
-                    "positionLeftCenterRight": "center",
-                    "textSizePx": "75",
-                    "positionTopToBottomPx": "750"
-                  },
-                  "effectList": {
-                    "list": [],
-                    "id": "5201ea90-e38b-11ed-8e9b-fb30552e0e11"
-                  },
-                  "presetListId": "cfd57d70-c167-11ec-bb23-2f4dbf6dfa98"
-                }
-              ],
-              "id": "48724100-e38b-11ed-8e9b-fb30552e0e11"
-            },
-            "filterData": {
-              "mode": "exclusive",
-              "filters": []
-            },
-            "id": "5ccb4ca0-e38b-11ed-8e9b-fb30552e0e11"
-          },
-          {
-            "name": "[Ads] Run Starting Screen Ads",
-            "active": true,
-            "cached": true,
-            "sortTags": [
-              "21ce24f6-1031-4dc0-b0f0-8325b932238a"
-            ],
-            "eventId": "stream-started",
-            "sourceId": "ebiggz-obs-control",
-            "effects": {
-              "list": [
-                {
-                  "id": "0e8a4c90-e38a-11ed-8e9b-fb30552e0e11",
-                  "type": "firebot:run-effect-list",
-                  "active": true,
-                  "listType": "preset",
-                  "presetListArgs": {
-                    "duration": "60",
-                    "title": "Ads Starting Soon",
-                    "textColor": "#AA5DD5",
-                    "shadowColor": "#52057C",
-                    "positionLeftCenterRight": "center",
-                    "textSize": "75",
-                    "textSizePx": "75",
-                    "positionTopToBottomPx": "10"
-                  },
-                  "effectList": {
-                    "list": [],
-                    "id": "bad1b1e0-c172-11ec-bb23-2f4dbf6dfa98"
-                  },
-                  "presetListId": "cfd57d70-c167-11ec-bb23-2f4dbf6dfa98",
-                  "effectLabel": "Ads Starting Soon Countdown"
-                },
-                {
-                  "id": "a03b9a40-d95d-11ed-a118-3f502954c8e2",
-                  "type": "firebot:delay",
-                  "active": true,
-                  "delay": "60",
-                  "effectLabel": "60 second delay"
-                },
-                {
-                  "id": "f4b523d0-e389-11ed-8e9b-fb30552e0e11",
-                  "type": "firebot:run-effect-list",
-                  "active": true,
-                  "listType": "preset",
-                  "presetListArgs": {
-                    "duration": "180",
-                    "title": "Ads are Running",
-                    "textColor": "#AA5DD5",
-                    "shadowColor": "#52057C",
-                    "positionLeftCenterRight": "center",
-                    "textSize": "75",
-                    "textSizePx": "75",
-                    "positionTopToBottomPx": "10"
-                  },
-                  "effectList": {
-                    "list": [],
-                    "id": "bad1b1e0-c172-11ec-bb23-2f4dbf6dfa98"
-                  },
-                  "presetListId": "cfd57d70-c167-11ec-bb23-2f4dbf6dfa98",
-                  "effectLabel": "Ads Running Countdown"
-                },
-                {
-                  "id": "8758e7d0-d95d-11ed-a118-3f502954c8e2",
-                  "type": "firebot:ad-break",
-                  "active": true,
-                  "adLength": 180,
-                  "effectLabel": "180sec / 3min of ads"
-                }
-              ],
-              "id": "7de13310-d95d-11ed-a118-3f502954c8e2"
-            },
-            "filterData": {
-              "mode": "exclusive",
-              "filters": []
-            },
-            "id": "b3195080-d95d-11ed-a118-3f502954c8e2"
-          }
-        ]
-      }
-    ],
-    "hotkeys": [],
-    "presetEffectLists": [
-      {
-        "name": "OnScreenTimer",
+        "cached": true,
+        "sortTags": [],
+        "eventId": "stream-stopped",
+        "sourceId": "ebiggz-obs-control",
         "effects": {
           "list": [
             {
-              "enterAnimation": "fadeIn",
-              "exitAnimation": "fadeOut",
-              "html": "<div id=\"timer-countdown-$replace[$presetListArg[title], \" \" , \"\"]\">\n<style>\n  @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap');\np.counter-$replace[$presetListArg[title], \" \", \"\"] {\n  color: $presetListArg[textColor];\n  text-align: $presetListArg[positionLeftCenterRight];\n  font-family: 'Open Sans', sans-serif;\n  font-family: 'Roboto', sans-serif;\n  font-size: $presetListArg[textSizePx]px;\n  text-shadow: 5px 3px 10px $presetListArg[shadowColor];\n  padding-right: 30px;\n  padding-top: $presetListArg[positionTopToBottomPx]px;\n  margin-bottom: -20px;\n  position: relative !important;\n}\n#timer-countdown-$replace[$presetListArg[title], \" \" , \"\"] {\n  position: relative !important;\n}\n</style>\n<script type=\"text/javascript\">\n  var duration$replace[$presetListArg[title], \" \", \"\"] = $presetListArg[duration]*1000;\n  var countDownDate$replace[$presetListArg[title], \" \", \"\"] = new Date().getTime( ) + duration$replace[$presetListArg[title], \" \", \"\"];\n  var xtimer$replace[$presetListArg[title], \" \", \"\"] = setInterval(function() {\n  var now$replace[$presetListArg[title], \" \", \"\"] = new Date().getTime();\n  var distance$replace[$presetListArg[title], \" \", \"\"] = countDownDate$replace[$presetListArg[title], \" \", \"\"] - now$replace[$presetListArg[title], \" \", \"\"];\n  var minutes$replace[$presetListArg[title], \" \", \"\"] = Math.floor((distance$replace[$presetListArg[title], \" \", \"\"] % (1000 * 60 * 60)) / (1000 * 60));\n  var seconds$replace[$presetListArg[title], \" \", \"\"] = Math.floor((distance$replace[$presetListArg[title], \" \", \"\"] % (1000 * 60)) / 1000);\n  if(minutes$replace[$presetListArg[title], \" \", \"\"] != 0){\n      minutes$replace[$presetListArg[title], \" \", \"\"] = minutes$replace[$presetListArg[title], \" \", \"\"] + \":\";\n  } else {\n      minutes$replace[$presetListArg[title], \" \", \"\"] = \"0:\";\n  }\n  if(seconds$replace[$presetListArg[title], \" \", \"\"] != 0){\n      seconds$replace[$presetListArg[title], \" \", \"\"] = seconds$replace[$presetListArg[title], \" \", \"\"] + \"\";\n  } \n  if(seconds$replace[$presetListArg[title], \" \", \"\"] < 10){\n      seconds$replace[$presetListArg[title], \" \", \"\"] = \"0\" + seconds$replace[$presetListArg[title], \" \", \"\"] + \"\";\n  }\n  document.getElementById(\"counter-$replace[$presetListArg[title], \" \", \"\"]\").innerHTML =  \"$presetListArg[title] \" + minutes$replace[$presetListArg[title], \" \", \"\"]  + seconds$replace[$presetListArg[title], \" \", \"\"];\n  if (distance$replace[$presetListArg[title], \" \", \"\"] < 0) {\n    clearInterval(xtimer$replace[$presetListArg[title], \" \", \"\"]);\n    document.getElementById(\"counter-$replace[$presetListArg[title], \" \", \"\"]\").innerHTML = \"\";\n  }\n}, 1000);\n</script>\n<p id=\"counter-$replace[$presetListArg[title], \" \", \"\"]\" class=\"counter-$replace[$presetListArg[title], \" \", \"\"]\"></p>\n</div>",
-              "id": "d1ae0e01-c167-11ec-bb23-2f4dbf6dfa98",
-              "inbetweenAnimation": "none",
-              "length": "$presetListArg[duration]",
-              "type": "firebot:html",
-              "active": true
+              "id": "5684f400-3aa6-11ee-b257-119212737812",
+              "type": "firebot:toggle-timer",
+              "active": true,
+              "selectedTimerId": "9682f3a0-5581-11ed-82fc-35cb9d65602e",
+              "toggleType": "disable"
             }
           ],
-          "id": "cfd5cb90-c167-11ec-bb23-2f4dbf6dfa98"
+          "id": "4dfecb30-3aa6-11ee-b257-119212737812"
+        },
+        "filterData": {
+          "mode": "exclusive",
+          "filters": []
+        },
+        "id": "63fcd440-3aa6-11ee-b257-119212737812"
+      }
+    ],
+    "eventGroups": [],
+    "hotkeys": [],
+    "presetEffectLists": [
+      {
+        "name": "Countdown",
+        "effects": {
+          "list": [
+            {
+              "id": "41a12770-1a8f-11ee-8f05-c7c6901b16f6",
+              "type": "firebot:html",
+              "active": true,
+              "enterAnimation": "fadeIn",
+              "exitAnimation": "fadeOut",
+              "inbetweenAnimation": "none",
+              "html": "$evalVars[$readFile[E:\\Streaming\\Assets\\Overlays\\countdown\\countdowns.html]]",
+              "length": "$presetListArg[countdown]"
+            }
+          ],
+          "id": "3b8ee4d5-1a8f-11ee-8f05-c7c6901b16f6"
         },
         "args": [
           {
-            "name": "duration"
-          },
-          {
-            "name": "title"
-          },
-          {
-            "name": "textColor"
-          },
-          {
-            "name": "shadowColor"
-          },
-          {
-            "name": "positionLeftCenterRight"
-          },
-          {
-            "name": "textSizePx"
-          },
-          {
-            "name": "positionTopToBottomPx"
+            "name": "countdown"
           }
         ],
         "sortTags": [
-          "b8568090-5b94-44cb-bc66-dbd54764adf8",
           "c7299530-6b33-4cfe-9571-984695db5292"
         ],
-        "id": "cfd57d70-c167-11ec-bb23-2f4dbf6dfa98"
+        "id": "3b8f0be0-1a8f-11ee-bccf-ab1038f73fb5"
       }
     ],
     "timers": [
       {
-        "active": true,
+        "active": false,
         "onlyWhenLive": true,
         "name": "Ad_tmr",
         "interval": 3540,
@@ -280,14 +203,21 @@
               "active": true,
               "color": "Purple",
               "chatter": "Streamer",
-              "message": "3 minutes of ads will begin rolling in less than 60 seconds! Sorry for the ads, but I need to roll a few every so often to reduce the preroll ad. I will not be doing or saying much during the ad, so you won't miss anything. This would be a good time to stand up and stretch, refill beverages, take a bio break, and get snacks!"
+              "message": "Chat, 3 minutes of advertisements will begin rolling in less than 60 seconds! Sorry for the ads, but I need to roll a few every so often to reduce the pre-roll ad. I will not be doing, or saying much during the ad, so you won't miss anything. This would be a good time to, stand up and stretch, refill beverages, take a bio break, and get snacks!"
             },
             {
-              "id": "97092cb0-d92d-11ed-9ea6-6314c8fcc95e",
-              "type": "firebot:text-to-speech",
+              "id": "4163d370-18e6-11ee-818f-fd3c2d9c9313",
+              "type": "firebot:playsound",
               "active": true,
-              "voiceId": "default",
-              "text": "Sorry to bother you $streamer, ads are about to start."
+              "soundType": "local",
+              "volume": 8,
+              "audioOutputDevice": {
+                "label": "Send To Overlay",
+                "deviceId": "overlay"
+              },
+              "filepath": "E:\\Streaming\\Assets\\Sounds\\Canned TTS\\AdMessage.wav",
+              "waitForSound": true,
+              "effectLabel": "TTS Long, canned"
             },
             {
               "id": "4d2f89b0-e385-11ed-8e9b-fb30552e0e11",
@@ -297,10 +227,9 @@
               "presetListArgs": {
                 "duration": "60",
                 "title": "Ads Starting Soon",
-                "textColor": "#AA5DD5",
+                "textColor": "#000000",
                 "shadowColor": "#52057C",
                 "positionLeftCenterRight": "center",
-                "textSize": "75",
                 "textSizePx": "75",
                 "positionTopToBottomPx": "10"
               },
@@ -308,7 +237,7 @@
                 "list": [],
                 "id": "bad1b1e0-c172-11ec-bb23-2f4dbf6dfa98"
               },
-              "presetListId": "cfd57d70-c167-11ec-bb23-2f4dbf6dfa98",
+              "presetListId": "67a8b1c0-1a87-11ee-bccf-ab1038f73fb5",
               "effectLabel": "Ads Starting Soon Countdown"
             },
             {
@@ -326,29 +255,47 @@
               "presetListArgs": {
                 "duration": "180",
                 "title": "Ads are Running",
-                "textColor": "#AA5DD5",
+                "textColor": "#000000",
                 "shadowColor": "#52057C",
                 "positionLeftCenterRight": "center",
-                "textSize": "75",
                 "textSizePx": "75",
-                "positionTopToBottomPx": "10"
+                "positionTopToBottomPx": "10",
+                "timesUpText": "Welcome Back, Thanks for sticking through the ads."
               },
               "effectList": {
                 "list": [],
                 "id": "bad1b1e0-c172-11ec-bb23-2f4dbf6dfa98"
               },
-              "presetListId": "cfd57d70-c167-11ec-bb23-2f4dbf6dfa98",
+              "presetListId": "67a8b1c0-1a87-11ee-bccf-ab1038f73fb5",
               "effectLabel": "Ads Running Countdown"
             },
             {
               "id": "49c57bc0-557f-11ed-9402-2dfd85fde49c",
               "type": "firebot:ad-break",
               "active": true,
-              "adLength": 90,
+              "adLength": 180,
               "effectLabel": "180sec / 3min"
+            },
+            {
+              "id": "ddba3680-fb2a-11ed-85d3-e78c99b0972f",
+              "type": "firebot:run-effect-list",
+              "active": true,
+              "listType": "preset",
+              "presetListArgs": {
+                "tts": "Welcome back everyone, the advertisement break should now be over. Thanks for sticking around.",
+                "voice": "southern_english_male",
+                "actor": "southern_english_male"
+              },
+              "effectList": {
+                "list": [],
+                "id": "ddbca780-fb2a-11ed-85d3-e78c99b0972f"
+              },
+              "presetListId": "0049f8d0-fb1b-11ed-8d27-912549bd6fa1",
+              "effectLabel": "TTS"
             }
           ],
-          "id": "461da970-557f-11ed-9402-2dfd85fde49c"
+          "id": "461da970-557f-11ed-9402-2dfd85fde49c",
+          "queue": "4c776780-0717-11ee-86fa-c1a4400e49dd"
         },
         "id": "9682f3a0-5581-11ed-82fc-35cb9d65602e"
       }

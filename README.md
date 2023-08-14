@@ -6,10 +6,11 @@ Ad Manager for Twitch streams. Two parts 1) A timer that will give a 60 second n
 
 + Download files
     + Ad Manager.firebotsetup
-+ Import setup for Firebot
-    + by going to Settings > Setups > Import Setup
-    + Choose the file Ad Manager.firebotsetup from the location you just downloaded it to
+    + countdowns.html
++ Import setup for Firebot (by going to Settings > Setups > Import Setup)
+    + Choose the firebotsetup file
     + Click Import setup
+    + Copy the html file to a directory of your choosing
 
 # Usage
 
@@ -17,12 +18,17 @@ Ad Manager for Twitch streams. Two parts 1) A timer that will give a 60 second n
     + Change the Event '[Ads] Run Starting Screen Ads'
         + Delay timer, currently set at 60 seconds (or 1 minute)
         + Ad Break for desired duration, currently set to 180 seconds (or 3 minutes) to prevent pre-rolls
+        + Toggle Ads Starting Soon Countdown to use the preset effect list OnScreenTimer
 
     + Change the Time-Based 'Ad_tmr'
         + Timer interval for when you would like to have the ad run, currently set at 3540 seconds (or 59 minutes)
         + Ad Break for desired duration, currently set at 180 seconds (or 3 minutes) to prevent pre-rolls
         + Announce for content
         + Text to Speech for content or swap for any other audio alert
+        + Add an event for OBS stopped streaming to disable the Ad_tmr effect
+
+    + Change the TTS
+        + This setup uses a custom tts, that is not included
 
 # Credits
 Modeled after a setup posted by Cinnabadger
