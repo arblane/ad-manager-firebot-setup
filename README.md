@@ -1,7 +1,7 @@
 # ad-manager-firebot-setup
 Ad Manager for Twitch streams. Two parts 1) A timer that will give a 60 second notification for streamer and chat that an ad is coming up (both in chat and in the Firebot overlay), sound notification of the same (via TTS), followed by customized ad duration  and 2) A customizable on stream start ad run to mitigate pre-roll ads.
 
-# Compatability
+# Compatibility
 + Firebot 5.58.0+
 
 # Install
